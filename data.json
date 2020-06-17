@@ -1,1 +1,1 @@
-[{"todo":"Have breakfast","status":true},{"todo":"Have lunch","status":false},{"todo":"go camping","status":true},{"todo":"have dinner","status":false},{"todo":{"_":["add"],"todo":"hello","t":"hello","status":"false","s":"false","$0":"app.js"}},{"todo":"hello","status":"false"}]
+[{"todo":"Have breakfast","status":true},{"todo":"Have lunch","status":false},{"todo":"go camping","status":true},{"todo":"have dinner","status":false},{"todo":"study for tonight test","status":"false"}]

@@ -2,6 +2,7 @@
 const fs = require('fs')
 const yargs = require("yargs");
 const chalk = require("chalk");
+let completedList=[]
 function loadData() {
     try {
         const buffer = fs.readFileSync("data.json")
@@ -35,16 +36,50 @@ function addToDo(todo, status) {
 yargs.command({
     command: "list",
     describe: "List all the todos",
+    builder:{
+        status:{
+        describe: "Describe the status of the to-do",
+        demandOption: false,
+        type: "boolean",
+        default: "false"
+    }
+    },
 
 
-    handler: function () {
+    handler: function (args) {
         const data = loadData()
-        data.forEach(({ todo, status }) => console.log(`
-            todo: ${todo}
-            status: ${status}`))
+        data.forEach(({ todo, status },idx) => console.log(chalk.white.bold(`
+        idx: ${idx}
+        todo: ${todo}
+            status: ${status}`)))
+            
             console.log(chalk.yellow.bold("Listing all the to-dos"))
     }
 });
+yargs.command({
+    command: "complete",
+    describe: "show a completed todos",
+    builder:{
+        status:{
+        describe: "Describe the status of the to-do",
+        demandOption: false,
+        type: "boolean",
+        default: "false"
+    }
+    },
+    
+    handler: function(args){
+        const todos = loadData()
+       for(let {todo, status} of todos) {
+           if(status=args.status){
+               console.log(chalk.bold.blue(todo,status))
+
+           }
+       }
+       
+    }
+})
+
 
 yargs.command({
     command: "add",
@@ -66,7 +101,7 @@ yargs.command({
     },
     handler: function ({todo,status}) {
        addToDo(todo,status)
-       console.log("Finish adding")
+       console.log(chalk.green.bold("Finish adding"))
 
     }
 }
